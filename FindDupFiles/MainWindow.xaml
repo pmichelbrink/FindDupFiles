@@ -1,0 +1,56 @@
+﻿<Window x:Class="FindDupFiles.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FindDupFiles"
+        mc:Ignorable="d"
+        Title="Find Duplicate Files"
+        x:Name="winFindDupFiles"
+        Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Margin="5">Root Folder Path:</TextBlock>
+            <TextBox x:Name="txtRootFolderPath" Margin="5" MinWidth="200"></TextBox>
+            <Button Margin="5" Padding="3,0" x:Name="btnRootFolderBrowse">...</Button>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <TextBlock Margin="5">Number of Matching Starting Characters:</TextBlock>
+            <TextBox x:Name="txtNumMatchingStartingChars" Margin="5"
+                     MinWidth="20"></TextBox>
+        </StackPanel>
+        <ListView Grid.Row="2"
+                  ItemsSource="{Binding ElementName=winFindDupFiles, Path=MatchingFiles}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Path"
+                                    DisplayMemberBinding="{Binding Path=Path}"
+                                    Width="Auto"></GridViewColumn>
+                    <GridViewColumn Header="Size (MB)"
+                                    DisplayMemberBinding="{Binding Path=Size}"
+                                    Width="50"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <EventSetter Event="MouseDoubleClick"
+                                 Handler="ListViewItem_MouseDoubleClick" />
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+
+        <StackPanel
+                    Orientation="Horizontal" HorizontalAlignment="Right"
+                    Grid.Row="3">
+            <Button x:Name="btnClose" Margin="5">Close</Button>
+            <Button x:Name="btnSearch" Margin="5"
+                    Click="btnSearch_Click">Search</Button>
+        </StackPanel>
+    </Grid>
+</Window>
