@@ -18,7 +18,8 @@
         <StackPanel Orientation="Horizontal">
             <TextBlock Margin="5">Root Folder Path:</TextBlock>
             <TextBox x:Name="txtRootFolderPath" Margin="5" MinWidth="200"></TextBox>
-            <Button Margin="5" Padding="3,0" x:Name="btnRootFolderBrowse">...</Button>
+            <Button Margin="5" Padding="3,0" x:Name="btnRootFolderBrowse"
+                    Click="btnRootFolderBrowse_Click">...</Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <TextBlock Margin="5">Number of Matching Starting Characters:</TextBlock>
@@ -26,6 +27,7 @@
                      MinWidth="20"></TextBox>
         </StackPanel>
         <ListView Grid.Row="2"
+                  Margin="5"
                   ItemsSource="{Binding ElementName=winFindDupFiles, Path=MatchingFiles}">
             <ListView.View>
                 <GridView>
@@ -48,7 +50,8 @@
         <StackPanel
                     Orientation="Horizontal" HorizontalAlignment="Right"
                     Grid.Row="3">
-            <Button x:Name="btnClose" Margin="5">Close</Button>
+            <Button x:Name="btnClose" Margin="5"
+                    Click="btnClose_Click">Close</Button>
             <Button x:Name="btnSearch" Margin="5"
                     Click="btnSearch_Click">Search</Button>
         </StackPanel>

@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using Microsoft.Win32;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -42,6 +43,12 @@ namespace FindDupFiles
                 return;
             }
 
+            if (!Directory.Exists(txtRootFolderPath.Text))
+            {
+                MessageBox.Show("Select a valid Root Folder Path.");
+                return;
+            }
+
             FindAllFiles(txtRootFolderPath.Text);
             FindDupFiles(txtRootFolderPath.Text);
         }
@@ -53,10 +60,12 @@ namespace FindDupFiles
                   .OrderByDescending(x => x.Count());
 
             if (!matches.Any())
+            {
+                MessageBox.Show("No matches found.");
                 return;
-   //.First();
+            }
 
-            var test = _files.GroupBy(x => Path.GetFileName(x).Substring(0, _numMatchingStartingChars)).OrderByDescending(x => x.Count()).ToList();
+                var test = _files.GroupBy(x => Path.GetFileName(x).Substring(0, _numMatchingStartingChars)).OrderByDescending(x => x.Count()).ToList();
             foreach (var match in matches)
             {
                 foreach (var item in match.ToList())
@@ -86,6 +95,19 @@ namespace FindDupFiles
         static string ConvertBytesToMegabytes(long bytes)
         {
             return ((bytes / 1024f) / 1024f).ToString("0.00");
+        }
+
+        private void btnRootFolderBrowse_Click(object sender, RoutedEventArgs e)
+        {
+            var folderDialog = new OpenFolderDialog();
+
+            if (folderDialog.ShowDialog() == true)
+                txtRootFolderPath.Text = folderDialog.FolderName;
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
     public class MatchingFile

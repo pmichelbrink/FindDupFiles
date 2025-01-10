@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/FindDupFiles/bin/Debug/net8.0-windows
+/FindDupFiles/obj/Debug/net8.0-windows/refint
+/FindDupFiles/obj/Debug/net8.0-windows/ref
